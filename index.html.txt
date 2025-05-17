@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MediPredict - AI Healthcare Solutions</title>
+<style>
+/* Global Styles */
+:root {
+--primary: #2a7fba;
+--secondary: #1a5276;
+--accent: #e74c3c;
+--light: #f8f9fa;
+--dark: #343a40;
+--success: #28a745;
+}
+
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+line-height: 1.6;
+color: #333;
+background-color: #f5f7fa;
+}
+
+a {
+text-decoration: none;
+color: var(--primary);
+}
+
+.container {
+width: 90%;
+max-width: 1200px;
+margin: 0 auto;
+padding: 0 15px;
+}
+
+.btn {
+display: inline-block;
+padding: 12px 24px;
+background-color: var(--primary);
+color: white;
+border-radius: 4px;
+font-weight: 600;
+transition: all 0.3s ease;
+border: none;
+cursor: pointer;
+}
+
+.btn:hover {
+background-color: var(--secondary);
+transform: translateY(-2px);
+}
+
+.btn-accent {
+background-color: var(--accent);
+}
+
+.btn-accent:hover {
+background-color: #c0392b;
+}
+
+section {
+padding: 80px 0;
+}
+
+.section-title {
+text-align: center;
+margin-bottom: 50px;
+font-size: 2.5rem;
+color: var(--secondary);
+}
+
+/* Header Styles */
+header {
+background-color: white;
+box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+position: fixed;
+width: 100%;
+z-index: 1000;
+}
+
+nav {
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 20px 0;
+}
+
+.logo {
+font-size: 1.8rem;
+font-weight: 700;
+color: var(--primary);
+}
+
+.logo span {
+color: var(--accent);
+}
+
+.nav-links {
+display: flex;
+list-style: none;
+}
+
+.nav-links li {
+margin-left: 30px;
+}
+
+.nav-links a {
+color: var(--dark);
+font-weight: 600;
+transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+color: var(--primary);
+}
+
+.mobile-menu {
+display: none;
+font-size: 1.5rem;
+cursor: pointer;
+}
+
+/* Hero Section */
+.hero {
+background: linear-gradient(135deg, var(--primary), var(--secondary));
+color: white;
+padding: 180px 0 100px;
+text-align: center;
+}
+
+.hero h1 {
+font-size: 3.5rem;
+margin-bottom: 20px;
+line-height: 1.2;
+}
+
+.hero p {
+font-size: 1.2rem;
+max-width: 700px;
+margin: 0 auto 40px;
+opacity: 0.9;
+}
+
+.hero-btns {
+display: flex;
+justify-content: center;
+gap: 20px;
+}
+
+/* Features Section */
+.features {
+background-color: white;
+}
+
+.features-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+gap: 30px;
+}
+
+.feature-card {
+background-color: var(--light);
+border-radius: 8px;
+padding: 30px;
+text-align: center;
+transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-card:hover {
+transform: translateY(-10px);
+box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.feature-icon {
+font-size: 3rem;
+color: var(--primary);
+margin-bottom: 20px;
+}
+
+.feature-card h3 {
+margin-bottom: 15px;
+color: var(--secondary);
+}
+
+/* How It Works */
+.how-it-works {
+background-color: #f5f7fa;
+}
+
+.steps {
+display: flex;
+flex-wrap: wrap;
+justify-content: center;
+gap: 30px;
+}
+
+.step {
+flex: 1;
+min-width: 250px;
+max-width: 350px;
+background-color: white;
+padding: 30px;
+border-radius: 8px;
+box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+position: relative;
+}
+
+.step-number {
+position: absolute;
+top: -20px;
+left: -20px;
+background-color: var(--accent);
+color: white;
+width: 50px;
+height: 50px;
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 1.5rem;
+font-weight: bold;
+}
+
+/* Demo Section */
+.demo {
+background: linear-gradient(135deg, #f5f7fa, #e4e9f2);
+text-align: center;
+}
+
+.demo-container {
+max-width: 800px;
+margin: 0 auto;
+background-color: white;
+padding: 40px;
+border-radius: 8px;
+box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.demo-form {
+display: flex;
+flex-direction: column;
+gap: 20px;
+}
+
+.form-group {
+text-align: left;
+}
+
+.form-group label {
+display: block;
+margin-bottom: 8px;
+font-weight: 600;
+}
+
+.form-group input,
+.form-group select {
+width: 100%;
+padding: 12px;
+border: 1px solid #ddd;
+border-radius: 4px;
+font-size: 1rem;
+}
+
+.prediction-result {
+margin-top: 30px;
+padding: 20px;
+background-color: var(--light);
+border-radius: 4px;
+display: none;
+}
+
+.prediction-result h3 {
+color: var(--secondary);
+margin-bottom: 10px;
+}
+
+/* Testimonials */
+.testimonials {
+background-color: white;
+}
+
+.testimonial-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+gap: 30px;
+}
+
+.testimonial {
+background-color: var(--light);
+padding: 30px;
+border-radius: 8px;
+position: relative;
+}
+
+.testimonial:before {
+content: '"';
+font-size: 5rem;
+color: rgba(0, 0, 0, 0.1);
+position: absolute;
+top: 10px;
+left: 20px;
+}
+
+.testimonial-content {
+margin-bottom: 20px;
+position: relative;
+z-index: 1;
+}
+
+.testimonial-author {
+display: flex;
+align-items: center;
+}
+
+.author-img {
+width: 50px;
+height: 50px;
+border-radius: 50%;
+margin-right: 15px;
+object-fit: cover;
+}
+
+.author-info h4 {
+margin-bottom: 5px;
+}
+
+.author-info p {
+color: #666;
+font-size: 0.9rem;
+}
+
+/* CTA Section */
+.cta {
+background: linear-gradient(135deg, var(--primary), var(--secondary));
+color: white;
+text-align: center;
+padding: 100px 0;
+}
+
+.cta h2 {
+font-size: 2.5rem;
+margin-bottom: 20px;
+}
+
+.cta p {
+max-width: 700px;
+margin: 0 auto 40px;
+opacity: 0.9;
+font-size: 1.1rem;
+}
+
+/* Footer */
+footer {
+background-color: var(--dark);
+color: white;
+padding: 60px 0 20px;
+}
+
+.footer-content {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+gap: 40px;
+margin-bottom: 40px;
+}
+
+.footer-column h3 {
+margin-bottom: 20px;
+font-size: 1.2rem;
+}
+
+.footer-links {
+list-style: none;
+}
+
+.footer-links li {
+margin-bottom: 10px;
+}
+
+.footer-links a {
+color: #bbb;
+transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+color: white;
+}
+
+.social-links {
+display: flex;
+gap: 15px;
+}
+
+.social-links a {
+color: white;
+font-size: 1.2rem;
+}
+
+.copyright {
+text-align: center;
+padding-top: 20px;
+border-top: 1px solid #444;
+color: #bbb;
+font-size: 0.9rem;
+}
+
+/* Responsive Styles */
+@media (max-width: 992px) {
+.section-title {
+font-size: 2rem;
+}
+
+.hero h1 {
+font-size: 2.8rem;
+}
+}
+
+@media (max-width: 768px) {
+.nav-links {
+display: none;
+}
+
+.mobile-menu {
+display: block;
+}
+
+.hero h1 {
+font-size: 2.2rem;
+}
+
+.hero p {
+font-size: 1rem;
+}
+
+.hero-btns {
+flex-direction: column;
+align-items: center;
+}
+
+section {
+padding: 60px 0;
+}
+}
+
+@media (max-width: 576px) {
+.section-title {
+font-size: 1.8rem;
+}
+
+.hero {
+padding: 150px 0 80px;
+}
+
+.feature-card {
+padding: 20px;
+}
+}
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+<!-- Header -->
+<header>
+<div class="container">
+<nav>
+<a href="#" class="logo">Medi<span>Predict</span></a>
+<ul class="nav-links">
+<li><a href="#features">Features</a></li>
+<li><a href="#how-it-works">How It Works</a></li>
+<li><a href="#demo">Try Demo</a></li>
+<li><a href="#testimonials">Testimonials</a></li>
+<li><a href="#contact">Contact</a></li>
+</ul>
+<div class="mobile-menu">
+<i class="fas fa-bars"></i>
+</div>
+</nav>
+</div>
+</header>
+
+<!-- Hero Section -->
+<section class="hero">
+<div class="container">
+<h1>Transforming Healthcare with AI-Powered Disease Prediction</h1>
+<p>Our advanced machine learning algorithms analyze patient data to predict potential health risks before symptoms appear, enabling proactive care and better outcomes.</p>
+<div class="hero-btns">
+<a href="#demo" class="btn">Try Our Demo</a>
+<a href="#contact" class="btn btn-accent">Contact Us</a>
+</div>
+</div>
+</section>
+
+<!-- Features Section -->
+<section id="features" class="features">
+<div class="container">
+<h2 class="section-title">Our Powerful Features</h2>
+<div class="features-grid">
+<div class="feature-card">
+<div class="feature-icon">
+<i class="fas fa-brain"></i>
+</div>
+<h3>Advanced AI Algorithms</h3>
+<p>Our proprietary deep learning models analyze complex health patterns with 95% accuracy, far surpassing traditional diagnostic methods.</p>
+</div>
+<div class="feature-card">
+<div class="feature-icon">
+<i class="fas fa-user-shield"></i>
+</div>
+<h3>Early Risk Detection</h3>
+<p>Identify potential health risks months or even years before symptoms manifest, allowing for preventive interventions.</p>
+</div>
+<div class="feature-card">
+<div class="feature-icon">
+<i class="fas fa-database"></i>
+</div>
+<h3>Comprehensive Data Analysis</h3>
+<p>Processes EHRs, lab results, genetic data, lifestyle factors, and more to create a complete health profile.</p>
+</div>
+<div class="feature-card">
+<div class="feature-icon">
+<i class="fas fa-chart-line"></i>
+</div>
+<h3>Personalized Insights</h3>
+<p>Generates tailored health recommendations based on individual risk factors and medical history.</p>
+</div>
+<div class="feature-card">
+<div class="feature-icon">
+<i class="fas fa-lock"></i>
+</div>
+<h3>HIPAA-Compliant Security</h3>
+<p>Enterprise-grade encryption and strict access controls ensure complete patient data privacy.</p>
+</div>
+<div class="feature-card">
+<div class="feature-icon">
+<i class="fas fa-plug"></i>
+</div>
+<h3>Seamless Integration</h3>
+<p>Easily connects with existing EHR systems through our API with minimal setup time.</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- How It Works Section -->
+<section id="how-it-works" class="how-it-works">
+<div class="container">
+<h2 class="section-title">How It Works</h2>
+<div class="steps">
+<div class="step">
+<div class="step-number">1</div>
+<h3>Data Collection</h3>
+<p>Our system securely aggregates patient data from electronic health records, wearable devices, and patient-reported information.</p>
+</div>
+<div class="step">
+<div class="step-number">2</div>
+<h3>Pattern Recognition</h3>
+<p>Advanced neural networks analyze thousands of data points to identify subtle patterns and correlations invisible to human analysis.</p>
+</div>
+<div class="step">
+<div class="step-number">3</div>
+<h3>Risk Assessment</h3>
+<p>The AI calculates personalized risk scores for various conditions based on the patient's unique health profile.</p>
+</div>
+<div class="step">
+<div class="step-number">4</div>
+<h3>Actionable Insights</h3>
+<p>Clinicians receive clear, evidence-based recommendations for preventive care and early interventions.</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Demo Section -->
+<section id="demo" class="demo">
+<div class="container">
+<h2 class="section-title">Try Our Prediction Demo</h2>
+<div class="demo-container">
+<p>Experience our AI prediction technology with this simplified demo. Enter sample patient data to see potential risk assessments.</p>
+
+<form class="demo-form">
+<div class="form-group">
+<label for="age">Age</label>
+<input type="number" id="age" min="18" max="100" required>
+</div>
+
+<div class="form-group">
+<label for="gender">Gender</label>
+<select id="gender" required>
+<option value="">Select</option>
+<option value="male">Male</option>
+<option value="female">Female</option>
+<option value="other">Other</option>
+</select>
+</div>
+
+<div class="form-group">
+<label for="bmi">BMI</label>
+<input type="number" id="bmi" min="15" max="50" step="0.1" required>
+</div>
+
+<div class="form-group">
+<label for="blood-pressure">Blood Pressure (mmHg)</label>
+<input type="text" id="blood-pressure" placeholder="120/80" required>
+</div>
+
+<div class="form-group">
+<label for="cholesterol">Total Cholesterol (mg/dL)</label>
+<input type="number" id="cholesterol" min="100" max="400" required>
+</div>
+
+<button type="button" class="btn" onclick="runDemo()">Predict Health Risks</button>
+</form>
+
+<div id="prediction-result" class="prediction-result">
+<h3>Prediction Results</h3>
+<div id="result-content"></div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Testimonials Section -->
+<section id="testimonials" class="testimonials">
+<div class="container">
+<h2 class="section-title">What Healthcare Professionals Say</h2>
+<div class="testimonial-grid">
+<div class="testimonial">
+<div class="testimonial-content">
+<p>MediPredict has transformed our preventive care program. We're identifying at-risk patients months before symptoms appear, allowing for interventions that have already improved outcomes by 40% in our practice.</p>
+</div>
+<div class="testimonial-author">
+<img src="https://randomuser.me/api/portraits/women/45.jpg" alt="Dr. Sarah Johnson" class="author-img">
+<div class="author-info">
+<h4>Dr. Sarah Johnson</h4>
+<p>Chief of Cardiology, Boston General</p>
+</div>
+</div>
+</div>
+<div class="testimonial">
+<div class="testimonial-content">
+<p>As a primary care physician, I rely on MediPredict's risk assessments to prioritize my patients who need the most attention. The accuracy of their predictions is remarkable.</p>
+</div>
+<div class="testimonial-author">
+<img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Dr. Michael Chen" class="author-img">
+<div class="author-info">
+<h4>Dr. Michael Chen</h4>
+<p>Family Medicine, Austin Health</p>
+</div>
+</div>
+</div>
+<div class="testimonial">
+<div class="testimonial-content">
+<p>Implementing MediPredict in our hospital system has reduced emergency admissions by 28% in the first year. The AI's ability to flag deteriorating patients has been a game-changer.</p>
+</div>
+<div class="testimonial-author">
+<img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Dr. Angela Martinez" class="author-img">
+<div class="author-info">
+<h4>Dr. Angela Martinez</h4>
+<p>CMO, Denver Medical Center</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta">
+<div class="container">
+<h2>Ready to Transform Your Healthcare Practice?</h2>
+<p>Join hundreds of healthcare providers using MediPredict to deliver proactive, personalized care powered by artificial intelligence.</p>
+<a href="#contact" class="btn">Request a Demo</a>
+</div>
+</section>
+
+<!-- Footer -->
+<footer id="contact">
+<div class="container">
+<div class="footer-content">
+<div class="footer-column">
+<h3>MediPredict</h3>
+<p>Leading the AI revolution in healthcare prediction and preventive medicine.</p>
+<div class="social-links">
+<a href="#"><i class="fab fa-twitter"></i></a>
+<a href="#"><i class="fab fa-linkedin"></i></a>
+<a href="#"><i class="fab fa-facebook"></i></a>
+</div>
+</div>
+<div class="footer-column">
+<h3>Quick Links</h3>
+<ul class="footer-links">
+<li><a href="#features">Features</a></li>
+<li><a href="#how-it-works">How It Works</a></li>
+<li><a href="#demo">Demo</a></li>
+<li><a href="#testimonials">Testimonials</a></li>
+</ul>
+</div>
+<div class="footer-column">
+<h3>Solutions</h3>
+<ul class="footer-links">
+<li><a href="#">For Hospitals</a></li>
+<li><a href="#">For Clinics</a></li>
+<li><a href="#">For Insurers</a></li>
+<li><a href="#">For Researchers</a></li>
+</ul>
+</div>
+<div class="footer-column">
+<h3>Contact Us</h3>
+<ul class="footer-links">
+<li><i class="fas fa-map-marker-alt"></i> 123 Health Tech Way, San Francisco, CA</li>
+<li><i class="fas fa-phone"></i> (800) 555-HEAL</li>
+<li><i class="fas fa-envelope"></i> info@medipredict.ai</li>
+</ul>
+</div>
+</div>
+<div class="copyright">
+<p>&copy; 2023 MediPredict AI. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+</div>
+</div>
+</footer>
+
+<script>
+// Simple demo functionality
+function runDemo() {
+const age = document.getElementById('age').value;
+const gender = document.getElementById('gender').value;
+const bmi = document.getElementById('bmi').value;
+const bp = document.getElementById('blood-pressure').value;
+const cholesterol = document.getElementById('cholesterol').value;
+
+if (!age || !gender || !bmi || !bp || !cholesterol) {
+alert('Please fill in all fields');
+return;
+}
+
+// Simple mock analysis (in a real app, this would call an API)
+let risks = [];
+let recommendations = [];
+
+// BMI analysis
+if (bmi > 30) {
+risks.push('Obesity (High Risk)');
+recommendations.push('Weight management program recommended');
+} else if (bmi > 25) {
+risks.push('Overweight (Moderate Risk)');
+recommendations.push('Diet and exercise counseling suggested');
+}
+
+// Blood pressure analysis
+const [systolic, diastolic] = bp.split('/').map(Number);
+if (systolic >= 140 || diastolic >= 90) {
+risks.push('Hypertension (High Risk)');
+recommendations.push('Consult with cardiologist recommended');
+} else if (systolic >= 130 || diastolic >= 85) {
+risks.push('Elevated Blood Pressure (Moderate Risk)');
+recommendations.push('Regular monitoring suggested');
+}
+
+// Cholesterol analysis
+if (cholesterol > 240) {
+risks.push('High Cholesterol (High Risk)');
+recommendations.push('Lipid panel and dietary assessment recommended');
+} else if (cholesterol > 200) {
+risks.push('Borderline High Cholesterol (Moderate Risk)');
+recommendations.push('Dietary modifications suggested');
+}
+
+// Age/gender specific risks
+if (age > 50) {
+risks.push('Age-related risk factors (Moderate Risk)');
+recommendations.push('Annual comprehensive screening recommended');
+}
+
+if (gender === 'male' && age > 45) {
+risks.push('Elevated cardiovascular risk (Moderate Risk)');
+recommendations.push('Cardiac evaluation suggested');
+} else if (gender === 'female' && age > 55) {
+risks.push('Elevated cardiovascular risk (Moderate Risk)');
+recommendations.push('Cardiac evaluation suggested');
+}
+
+// Display results
+const resultDiv = document.getElementById('result-content');
+const predictionDiv = document.getElementById('prediction-result');
+
+if (risks.length === 0) {
+resultDiv.innerHTML = `
+<p><strong>Risk Assessment:</strong> Low overall risk based on provided data</p>
+<p><strong>Recommendation:</strong> Continue with regular preventive care and healthy lifestyle</p>
+`;
+} else {
+resultDiv.innerHTML = `
+<p><strong>Identified Risk Factors:</strong></p>
+<ul>
+${risks.map(risk => `<li>${risk}</li>`).join('')}
+</ul>
+<p><strong>Clinical Recommendations:</strong></p>
+<ul>
+${recommendations.map(rec => `<li>${rec}</li>`).join('')}
+</ul>
+<p><em>Note: This is a simplified demo. Actual clinical decisions should be based on comprehensive evaluation.</em></p>
+`;
+}
+
+predictionDiv.style.display = 'block';
+}
+</script>
+</body>
+</html>
